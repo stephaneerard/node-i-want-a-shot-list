@@ -1,0 +1,39 @@
+{
+  "author": "Stephane Erard <serard06@protonmail.com",
+  "dependencies": {
+    "yargs": "^15.1.0",
+    "i-want-a-shot": "^0.0.10"
+  },
+  "description": "Take a shot list !",
+  "devDependencies": {
+    "@types/fs-extra": "^8.0.1",
+    "@types/node": "^13.5.2",
+    "@types/request": "^2.48.4",
+    "@types/yargs": "^15.0.2",
+    "bump": "^0.2.5",
+    "release-it": "^12.4.3",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  },
+  "directories": {
+    "bin": "./bin"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "main": "dist/index.js",
+  "name": "i-want-a-shot-list",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephaneerard/node-i-want-a-shot-list"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release.minor": "release-it minor",
+    "release.patch": "release-it patch",
+    "release.major": "release-it major"
+  },
+  "version": "0.0.1"
+}
