@@ -43,4 +43,4 @@ Options:
 
 ```bash
 take-a-shot-list.ts shot --query "mere et fils" --query "ligue du lol"
-``
+```
