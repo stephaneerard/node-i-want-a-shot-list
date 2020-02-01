@@ -1,8 +1,9 @@
 {
   "author": "Stephane Erard <serard06@protonmail.com",
   "dependencies": {
-    "yargs": "^15.1.0",
-    "i-want-a-shot": "^0.0.14"
+    "fs-extra": "^8.1.0",
+    "i-want-a-shot": "^0.0.14",
+    "yargs": "^15.1.0"
   },
   "description": "Take a shot list !",
   "devDependencies": {

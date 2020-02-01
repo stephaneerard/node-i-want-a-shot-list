@@ -1,7 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const path = require("path");
 const api = require("i-want-a-shot");
+const fs = require("fs-extra");
 exports.builder = Object.assign({
+    config: {
+        type: 'string',
+        default: path.join(process.cwd(), 'config.json')
+    },
     query: {
         default: [],
         type: 'array',
@@ -10,23 +16,30 @@ exports.builder = Object.assign({
 }, api.builder);
 async function takeAshot(request) {
     if (request.query.length > 0) {
+        const config = await (async () => {
+            if (request.config) {
+                const json = JSON.parse((await fs.readFile(request.config)).toString());
+                return json;
+            }
+            return false;
+        })();
         const promises = [];
         for (var i = 0, j = request.query.length; i < j; i++) {
             const query = request.query[i];
             promises.push(api
                 .takeAshot({
-                api: request.api,
-                bing: request.bing,
-                ecosia: request.ecosia,
-                edu: request.edu,
-                egp: request.egp,
-                lilo: request.lilo,
-                lite: request.lite,
-                pages: request.pages,
-                query: query,
-                resolutions: request.resolutions,
-                userAgent: request.userAgent,
-                basePath: request.basePath,
+                api: config ? config.api : request.api,
+                bing: config ? config.bing : request.bing,
+                ecosia: config ? config.ecosia : request.ecosia,
+                edu: config ? config.edu : request.edu,
+                egp: config ? config.egp : request.egp,
+                lilo: config ? config.lilo : request.lilo,
+                lite: config ? config.lite : request.lite,
+                pages: config ? config.pages : request.pages,
+                query: config ? config.query : query,
+                resolutions: config ? config.resolutions : request.resolutions,
+                userAgent: config ? config.userAgent : request.userAgent,
+                basePath: config ? config.userAgent : request.basePath,
             }));
         }
         await Promise.all(promises);
