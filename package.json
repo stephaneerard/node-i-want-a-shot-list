@@ -2,7 +2,7 @@
   "author": "Stephane Erard <serard06@protonmail.com",
   "dependencies": {
     "yargs": "^15.1.0",
-    "i-want-a-shot": "^0.0.10"
+    "i-want-a-shot": "^0.0.14"
   },
   "description": "Take a shot list !",
   "devDependencies": {
@@ -35,5 +35,5 @@
     "release.patch": "release-it patch",
     "release.major": "release-it major"
   },
-  "version": "0.0.4"
+  "version": "0.0.5"
 }
