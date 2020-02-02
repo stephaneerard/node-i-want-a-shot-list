@@ -36,7 +36,6 @@ export async function takeAshot(request: RequestInterface): Promise<void> {
             return false;
         })();
 
-
         const promises = (() => {
             const _p = [];
             for (let i = 0, j = request.query.length; i < j; i++) {
