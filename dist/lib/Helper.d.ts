@@ -1,11 +1,11 @@
 import * as api from "i-want-a-shot";
 export interface ArgvInterface extends api.ArgvInterface {
     list: Array<string>;
-    config: object | null;
+    config: string;
 }
 export interface RequestInterface extends api.RequestInterface {
     list: Array<string>;
-    config: string | null;
+    config: string;
 }
 export declare const builder: {
     config: {

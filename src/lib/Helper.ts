@@ -4,12 +4,12 @@ import * as fs from "fs-extra"
 
 export interface ArgvInterface extends api.ArgvInterface {
     list: Array<string>
-    config: object | null
+    config: string
 }
 
 export interface RequestInterface extends api.RequestInterface {
     list: Array<string>
-    config: string | null
+    config: string
 }
 
 export const builder = Object.assign({
@@ -25,13 +25,26 @@ export const builder = Object.assign({
 }, api.builder);
 
 export async function takeAshot(request: RequestInterface): Promise<void> {
-
-    if (request.query.length > 0) {
+    if (request.query.length > 0 || request.config) {
 
         const config: RequestInterface = await (async () => {
             if (request.config) {
-                const json = JSON.parse((await fs.readFile(request.config)).toString());
-                return json;
+                if ('.json' === path.extname(request.config)) {
+                    console.log('loading from json %s', request.config);
+                    return JSON.parse((await fs.readFile(request.config)).toString());
+                } else if ('.js' === path.extname(request.config)) {
+                    console.log('loading from js %s', request.config);
+                    const loadedModule = require(request.config);
+                    if (loadedModule.config && 'function' === typeof loadedModule.config) {
+                        const config = await require(request.config).config();
+                        console.log(config)
+                        if (config instanceof Promise) {
+                            return await config;
+                        }
+                        return config;
+                    }
+
+                }
             }
             return false;
         })();
@@ -40,22 +53,22 @@ export async function takeAshot(request: RequestInterface): Promise<void> {
             const _p = [];
             for (let i = 0, j = request.query.length; i < j; i++) {
                 const query = request.query[i];
-                _p.push(
-                    api
-                        .takeAshot({
-                            api: config ? config.api : request.api,
-                            bing: config ? config.bing : request.bing,
-                            ecosia: config ? config.ecosia : request.ecosia,
-                            edu: config ? config.edu : request.edu,
-                            egp: config ? config.egp : request.egp,
-                            lilo: config ? config.lilo : request.lilo,
-                            lite: config ? config.lite : request.lite,
-                            pages: config ? config.pages : request.pages,
-                            query: config ? config.query : query,
-                            resolutions: config ? config.resolutions : request.resolutions,
-                            userAgent: config ? config.userAgent : request.userAgent,
-                            basePath: config ? config.userAgent : request.basePath,
-                        }))
+                const payload = {
+                    api: config ? config.api : request.api,
+                    bing: config ? config.bing : request.bing,
+                    ecosia: config ? config.ecosia : request.ecosia,
+                    edu: config ? config.edu : request.edu,
+                    egp: config ? config.egp : request.egp,
+                    lilo: config ? config.lilo : request.lilo,
+                    lite: config ? config.lite : request.lite,
+                    pages: config ? config.pages : request.pages,
+                    query: config ? config.query : query,
+                    resolutions: config ? config.resolutions : request.resolutions,
+                    userAgent: config ? config.userAgent : request.userAgent,
+                    basePath: config ? config.userAgent : request.basePath,
+                };
+                console.log(JSON.stringify(payload, null, 4))
+                _p.push(api.takeAshot(payload));
             }
 
             return _p;

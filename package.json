@@ -3,6 +3,7 @@
   "dependencies": {
     "fs-extra": "^8.1.0",
     "i-want-a-shot": "^0.0.14",
+    "source-map-support": "^0.5.16",
     "yargs": "^15.1.0"
   },
   "description": "Take a shot list !",

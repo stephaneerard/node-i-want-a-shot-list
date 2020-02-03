@@ -15,11 +15,25 @@ exports.builder = Object.assign({
     }
 }, api.builder);
 async function takeAshot(request) {
-    if (request.query.length > 0) {
+    if (request.query.length > 0 || request.config) {
         const config = await (async () => {
             if (request.config) {
-                const json = JSON.parse((await fs.readFile(request.config)).toString());
-                return json;
+                if ('.json' === path.extname(request.config)) {
+                    console.log('loading from json %s', request.config);
+                    return JSON.parse((await fs.readFile(request.config)).toString());
+                }
+                else if ('.js' === path.extname(request.config)) {
+                    console.log('loading from js %s', request.config);
+                    const loadedModule = require(request.config);
+                    if (loadedModule.config && 'function' === typeof loadedModule.config) {
+                        const config = await require(request.config).config();
+                        console.log(config);
+                        if (config instanceof Promise) {
+                            return await config;
+                        }
+                        return config;
+                    }
+                }
             }
             return false;
         })();
@@ -27,8 +41,7 @@ async function takeAshot(request) {
             const _p = [];
             for (let i = 0, j = request.query.length; i < j; i++) {
                 const query = request.query[i];
-                _p.push(api
-                    .takeAshot({
+                const payload = {
                     api: config ? config.api : request.api,
                     bing: config ? config.bing : request.bing,
                     ecosia: config ? config.ecosia : request.ecosia,
@@ -41,7 +54,9 @@ async function takeAshot(request) {
                     resolutions: config ? config.resolutions : request.resolutions,
                     userAgent: config ? config.userAgent : request.userAgent,
                     basePath: config ? config.userAgent : request.basePath,
-                }));
+                };
+                console.log(JSON.stringify(payload, null, 4));
+                _p.push(api.takeAshot(payload));
             }
             return _p;
         })();

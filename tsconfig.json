@@ -27,7 +27,6 @@
   },
   "include": [
     "./src/**/*.ts",
-    "test/**/*.specs.*.ts",
-    "../../Users/steph/.PhpStorm2019.3/config/javascript/nodejs/12.14.0/node-typings/node_modules/@types/node/globals.d.ts"
+    "test/**/*.specs.*.ts"
   ]
 }
