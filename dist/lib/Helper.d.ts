@@ -48,6 +48,11 @@ export declare const builder: {
         default: boolean;
         description: string;
     };
+    lilo: {
+        type: string;
+        default: boolean;
+        description: string;
+    };
     pages: {
         type: string;
         default: number;
@@ -63,6 +68,21 @@ export declare const builder: {
     resolutions: {
         type: string;
         default: string[];
+    };
+    config: {
+        type: string;
+        default: any;
+        description: string;
+    };
+    'concurrency-jpg': {
+        type: string;
+        default: number;
+        description: string;
+    };
+    'concurrency-api': {
+        type: string;
+        default: number;
+        description: string;
     };
 };
 export declare function takeAshot(request: RequestInterface): Promise<void>;

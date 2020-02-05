@@ -8,6 +8,8 @@ exports.builder = api.builder;
 exports.handler = async function (argv) {
     const request = {
         config: path.isAbsolute(argv.config) ? argv.config : path.normalize(path.join(process.cwd(), argv.config)),
+        'concurrency-jpg': argv['concurrency-jpg'],
+        'concurrency-api': argv['concurrency-api'],
         query: argv.query,
         api: argv.api,
         lite: argv.lite,
@@ -20,9 +22,8 @@ exports.handler = async function (argv) {
         userAgent: argv.userAgent,
         resolutions: argv.resolutions,
         list: argv.list,
-        basePath: argv.path,
+        basePath: path.isAbsolute(argv.path) ? argv.path : path.normalize(path.join(process.cwd(), argv.path)),
     };
-    console.log('request', request);
     await api.takeAshot(request);
 };
 //# sourceMappingURL=shot.js.map

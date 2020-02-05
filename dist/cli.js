@@ -2,8 +2,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const yargs = require("yargs");
+const path = require("path");
 yargs
-    .commandDir('./commands', {})
+    .commandDir(path.join(__dirname, './commands'), { recurse: true })
     .help()
     .version()
     .demandCommand(1)
