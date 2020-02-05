@@ -84,5 +84,10 @@ export declare const builder: {
         default: number;
         description: string;
     };
+    'delay-ms': {
+        type: string;
+        default: number;
+        description: string;
+    };
 };
 export declare function takeAshot(request: RequestInterface): Promise<void>;

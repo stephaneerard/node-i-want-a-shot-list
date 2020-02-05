@@ -68,6 +68,7 @@ async function takeAshot(request) {
                 resolutions: config && config.resolutions ? config.resolutions : request.resolutions,
                 userAgent: config && config.userAgent ? config.userAgent : request.userAgent,
                 basePath: config && config.userAgent ? config.userAgent : request.basePath,
+                'delay-ms': config && config['delay-ms'] ? config['delay-ms'] : request['delay-ms'],
             };
             _p.push(api.takeAshot(payload));
         }
