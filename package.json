@@ -3,7 +3,7 @@
   "dependencies": {
     "concurrency-control": "^1.0.1",
     "fs-extra": "^8.1.0",
-    "i-want-a-shot": "0.0.16",
+    "i-want-a-shot": "0.0.17",
     "p-limit": "^2.2.2",
     "p-queue": "^6.2.1",
     "source-map-support": "^0.5.16",
@@ -40,5 +40,5 @@
     "release.patch": "release-it patch",
     "release.major": "release-it major"
   },
-  "version": "0.0.8"
+  "version": "0.0.9"
 }
