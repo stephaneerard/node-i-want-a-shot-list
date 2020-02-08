@@ -58,8 +58,6 @@ export async function takeAshot(request: RequestInterface): Promise<void> {
     if (0 === request.query.length && config.query)
         request.query = config.query;
 
-    api.configure({concurrency_api: request['concurrency-api'], concurrency_jpg: request['concurrency-jpg']})
-
     const promises = (() => {
         const _p = [];
         for (let i = 0, j = request.query.length; i < j; i++) {
